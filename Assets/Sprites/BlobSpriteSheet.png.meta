@@ -1,0 +1,287 @@
+fileFormatVersion: 2
+guid: 23541926193572c45b148e4634274fb8
+timeCreated: 1443584392
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: BlobSpriteSheet_0
+    21300002: BlobSpriteSheet_1
+    21300004: BlobSpriteSheet_2
+    21300006: BlobSpriteSheet_3
+    21300008: BlobSpriteSheet_4
+    21300010: BlobSpriteSheet_5
+    21300012: BlobSpriteSheet_6
+    21300014: BlobSpriteSheet_7
+    21300016: BlobSpriteSheet_8
+    21300018: BlobSpriteSheet_9
+    21300020: BlobSpriteSheet_10
+    21300022: BlobSpriteSheet_11
+    21300024: BlobSpriteSheet_12
+    21300026: BlobSpriteSheet_13
+    21300028: BlobSpriteSheet_14
+    21300030: BlobSpriteSheet_15
+    21300032: BlobSpriteSheet_16
+    21300034: BlobSpriteSheet_17
+    21300036: BlobSpriteSheet_18
+    21300038: BlobSpriteSheet_19
+    21300040: BlobSpriteSheet_20
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 20
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: BlobSpriteSheet_0
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 1564
+        width: 243
+        height: 257
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BlobSpriteSheet_1
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 1561
+        width: 243
+        height: 257
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BlobSpriteSheet_2
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 1561
+        width: 243
+        height: 257
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BlobSpriteSheet_3
+      rect:
+        serializedVersion: 2
+        x: 1071
+        y: 1499
+        width: 252
+        height: 370
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BlobSpriteSheet_4
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 1201
+        width: 242
+        height: 256
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BlobSpriteSheet_5
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 1212
+        width: 252
+        height: 250
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BlobSpriteSheet_6
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 1214
+        width: 260
+        height: 237
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BlobSpriteSheet_7
+      rect:
+        serializedVersion: 2
+        x: 1044
+        y: 1212
+        width: 274
+        height: 238
+      alignment: 9
+      pivot: {x: .535849512, y: .477675498}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BlobSpriteSheet_8
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 912
+        width: 337
+        height: 281
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BlobSpriteSheet_9
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 847
+        width: 152
+        height: 296
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BlobSpriteSheet_10
+      rect:
+        serializedVersion: 2
+        x: 787
+        y: 897
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BlobSpriteSheet_11
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 510
+        width: 281
+        height: 267
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BlobSpriteSheet_12
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 510
+        width: 284
+        height: 288
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BlobSpriteSheet_13
+      rect:
+        serializedVersion: 2
+        x: 785
+        y: 510
+        width: 325
+        height: 304
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BlobSpriteSheet_14
+      rect:
+        serializedVersion: 2
+        x: 1180
+        y: 502
+        width: 321
+        height: 280
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BlobSpriteSheet_15
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 188
+        width: 135
+        height: 150
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BlobSpriteSheet_16
+      rect:
+        serializedVersion: 2
+        x: 457
+        y: 277
+        width: 45
+        height: 51
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BlobSpriteSheet_17
+      rect:
+        serializedVersion: 2
+        x: 730
+        y: 257
+        width: 43
+        height: 44
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BlobSpriteSheet_18
+      rect:
+        serializedVersion: 2
+        x: 879
+        y: 241
+        width: 66
+        height: 72
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BlobSpriteSheet_19
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 101
+        width: 37
+        height: 35
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BlobSpriteSheet_20
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 117
+        width: 128
+        height: 136
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
