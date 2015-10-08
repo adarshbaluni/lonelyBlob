@@ -45,10 +45,8 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Arrow.cs" />
      <Compile Include="Assets\Audio\Scripts\AudioPlayer.cs" />
      <Compile Include="Assets\Audio\Scripts\AudioTestScript.cs" />
-     <Compile Include="Assets\Compass.cs" />
      <Compile Include="Assets\Custom Assets\Scripts\Player\WeaponScript.cs" />
      <Compile Include="Assets\Custom Assets\Scripts\PowerUp.cs" />
      <Compile Include="Assets\Custom Assets\Scripts\Shot\ShotMove.cs" />
@@ -57,11 +55,15 @@
      <Compile Include="Assets\MainMenu.cs" />
      <Compile Include="Assets\Pointer.cs" />
      <Compile Include="Assets\Powerup.cs" />
+     <Compile Include="Assets\Scripts\Character\BlobRegen.cs" />
      <Compile Include="Assets\Scripts\Character\CharacterControl.cs" />
      <Compile Include="Assets\Scripts\Character\Gun.cs" />
+     <Compile Include="Assets\Scripts\Character\LifeBar.cs" />
      <Compile Include="Assets\Scripts\Character\MoveObject.cs" />
      <Compile Include="Assets\Scripts\Character\PowerupController.cs" />
+     <Compile Include="Assets\Scripts\Enemy\EnemyControl.cs" />
      <Compile Include="Assets\Scripts\Environment\DamagePlayer.cs" />
+     <Compile Include="Assets\Scripts\Environment\MovingPlatform.cs" />
      <Compile Include="Assets\Scripts\Environment\Win.cs" />
      <Compile Include="Assets\Scripts\Input\AngryBlobController.cs" />
      <Compile Include="Assets\Scripts\Input\InputGestureBlobDraw.cs" />
@@ -70,11 +72,17 @@
      <Compile Include="Assets\UIManager.cs" />
      <Compile Include="Assets\dialog.cs" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
+ <Reference Include="UnityEngine.Advertisements">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Analytics">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Cecil">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/Mono.Cecil.dll</HintPath>

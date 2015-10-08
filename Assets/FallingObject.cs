@@ -7,23 +7,20 @@ public class FallingObject : MonoBehaviour {
 	public float speed = 0.2f; //how fast it shakes
 	public float amount = 0.25f; //how much it shakes
 	public bool vibrateToRight = false;
+	public bool timerStart = false;
 	
 
 	// Use this for initialization
 	void Start () {
 
-		// Start shaking
-		InvokeRepeating ("shake", 0.01f, speed);
-
 		GetComponent<Rigidbody2D> ().isKinematic = true;
-
 	
 	}
 
 	// Update is called once per frame
 	void Update () {
-	
-		timer -= Time.deltaTime;
+
+		if (timerStart) timer -= Time.deltaTime;
 	
 		if (timer < 0) {
 
@@ -32,10 +29,25 @@ public class FallingObject : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter2D(Collider2D collider){
+	void OnCollisionEnter2D(Collision2D collider){
 
 		// Destory itself if it hits something
 		Destroy (gameObject);
+
+	}
+
+	void OnTriggerEnter2D(Collider2D collider){
+
+		if (collider.gameObject.tag == "Player") {
+
+			// Start shaking
+			InvokeRepeating ("shake", 0.01f, speed);
+
+			// Start timer
+			timerStart = true;
+
+		}
+
 
 	}
 

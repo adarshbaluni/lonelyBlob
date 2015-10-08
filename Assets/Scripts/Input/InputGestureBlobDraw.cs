@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -19,7 +20,7 @@ public class InputGestureBlobDraw : MonoBehaviour
 {
 	public GameObject m_BlobBlockPrefab;
     float m_blockRadiusSqr;
-
+	public static bool platformCreate=false;
     public bool m_canDraw; //only activated when we are on lonely blob mode
     public float m_lifetime; //time for the blocks to dissapear
     public List<MapBlobBlock> m_blocks; //required to keep track of map blocks to destroy them
@@ -30,7 +31,8 @@ public class InputGestureBlobDraw : MonoBehaviour
 
 	// Use this for initialization
 	void Start () {
-        m_blockRadiusSqr = gameObject.GetComponent<BoxCollider2D>().size.x * gameObject.GetComponent<BoxCollider2D>().size.x *0.7f;
+        //m_blockRadiusSqr = gameObject.GetComponent<BoxCollider2D>().size.x * gameObject.GetComponent<BoxCollider2D>().size.x *0.7f;
+        m_blockRadiusSqr = GetComponent<CircleCollider2D>().radius * GetComponent<CircleCollider2D>().radius;
         m_blocks = new List<MapBlobBlock>();
         StartCoroutine(crDrawPlatforms());
 	}
@@ -44,17 +46,26 @@ public class InputGestureBlobDraw : MonoBehaviour
 
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetMouseButtonDown(0))
+
+		if(UIManager.isPaused || Win.isWon || DamagePlayer.isLost){
+			
+			return;
+    	}
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
         {
             m_mousePressed = true;
             m_isFirstBlock = true;
+            platformCreate = true;
         }
         else if (Input.GetMouseButtonUp(0))
         {
             m_mousePressed = false;
             m_isFirstBlock = false;
+            platformCreate = false;
         }
-
+        print("Mouse pressed: " + m_mousePressed);
+     
+		
         UpdateAndRemoveTimeoutPlatforms();
 	}
 
@@ -63,9 +74,16 @@ public class InputGestureBlobDraw : MonoBehaviour
         Vector3 blockOrient;
         while (true)
         {
+            if (UIManager.isPaused || Win.isWon || DamagePlayer.isLost)
+            {
+                yield return null;
+                continue;
+            }
+
             if (m_canDraw && m_mousePressed)
             {
                 Vector3 newBlockPos = MouseScreenToWorld(Input.mousePosition);
+
                 Quaternion blockRot;
                 if (m_isFirstBlock)
                 {
@@ -76,7 +94,8 @@ public class InputGestureBlobDraw : MonoBehaviour
                 }
                 else
                 {
-                     blockOrient = newBlockPos - m_prevBlockPos;
+                    DrawBlocksBetweenPos(ref m_prevBlockPos, ref newBlockPos);
+                    blockOrient = newBlockPos - m_prevBlockPos;
                 }
 
                 
@@ -84,14 +103,38 @@ public class InputGestureBlobDraw : MonoBehaviour
 
                 if (!IsColliding(ref m_prevBlockPos, ref newBlockPos) || true)
                 {
-                    GameObject block = (GameObject)Instantiate(m_BlobBlockPrefab, newBlockPos, blockRot);
-
-                    m_blocks.Add(new MapBlobBlock(block, m_lifetime));
+                    CreateBlock(ref newBlockPos, blockRot);
                     m_prevBlockPos = newBlockPos;
                 }
             }
 
             yield return null;
+        }
+    }
+
+    void CreateBlock(ref Vector3 blockPos,Quaternion blockRot)
+    {
+		if(LifeBar.OutOfLife)
+			return;
+        GameObject block = (GameObject)Instantiate(m_BlobBlockPrefab, blockPos, blockRot);
+        m_blocks.Add(new MapBlobBlock(block, m_lifetime));
+    }
+
+    void DrawBlocksBetweenPos(ref Vector3 prevPos,ref Vector3 newPos)
+    {
+        float overlapFactor = 0.5f; //radius factor that circles will overlap on the interpolation
+        float blockWidth = 2.0f*GetComponent<CircleCollider2D>().radius * overlapFactor;
+        Vector3 distVec = newPos - prevPos;
+        float availableDist = distVec.magnitude - blockWidth;
+        int blockQty = (int)(availableDist / blockWidth); //how many blocks can we fit in available space
+        float blockWidthFactor = blockWidth / distVec.magnitude;
+        Vector3 newBlockPos;
+
+        for(int i=1;i < blockQty+2;++i)
+        {
+            newBlockPos = prevPos + distVec * i * blockWidthFactor;
+            CreateBlock(ref newBlockPos,Quaternion.FromToRotation(Vector3.right, distVec));
+
         }
     }
 

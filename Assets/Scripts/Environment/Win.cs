@@ -5,7 +5,7 @@ public class Win : MonoBehaviour {
 	public Transform youWinPose;
 	public Transform creditsPose;
 	public GameObject winPanel;
-	public bool isWon;
+	public static bool isWon;
 	// Use this for initialization
 	void Start () {
 		youWinPose.gameObject.SetActive (false);
@@ -21,14 +21,14 @@ public class Win : MonoBehaviour {
 	}
 
 	void PauseGame(bool state){
-		if (state) {
+        //if (state) {
 			
-			Time.timeScale = 0.0f;
-		} 
-		else {
-			Time.timeScale = 1.0f;
+        //    Time.timeScale = 0.0f;
+        //} 
+        //else {
+        //    Time.timeScale = 1.0f;
 			
-		}
+        //}
 		winPanel.SetActive (state);
 	}
 

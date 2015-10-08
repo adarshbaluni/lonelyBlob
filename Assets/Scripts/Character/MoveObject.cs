@@ -16,4 +16,9 @@ public class MoveObject : MonoBehaviour {
 	public void updatePosition(Vector3 newPos){
 		transform.position = newPos;
 	}
+
+    public Vector3 getPostion()
+    {
+        return transform.position;
+    }
 }

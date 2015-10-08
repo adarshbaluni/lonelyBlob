@@ -5,7 +5,7 @@ using System.Collections;
 public class UIManager : MonoBehaviour
 {
 	public GameObject pausePanel;
-	public bool isPaused;
+	public  static bool isPaused;
 	public AudioSource jumpMusic;
 	// Use this for initialization
 	void Start ()
@@ -35,13 +35,14 @@ public class UIManager : MonoBehaviour
 	}
 	
 	public void Restart(){
-		
+
+		Win.isWon = false;
 		Application.LoadLevel ("LonelyBlob");
 		
 	}
 
 	public void Quit(){
-		
+		Win.isWon = false;
 		Application.LoadLevel ("MainMenu");
 		
 	}
@@ -74,7 +75,7 @@ public class UIManager : MonoBehaviour
 
 		jumpMusic.volume = 1.0f;
 	
-        GameObject.Find("Character").GetComponent<Rigidbody2D>().AddForce(Vector2.up * 4000);
+        GameObject.Find("Character").GetComponent<Rigidbody2D>().AddForce(Vector2.up * 5000);
 
 
     }
