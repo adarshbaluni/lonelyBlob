@@ -7,10 +7,14 @@ public class UIManager : MonoBehaviour
 	public GameObject pausePanel;
 	public  static bool isPaused;
 	public AudioSource jumpMusic;
+	private Animator anim;
 	// Use this for initialization
 	void Start ()
 	{
 		isPaused = false;
+		anim = pausePanel.GetComponent<Animator> ();
+		anim.enabled = false;
+		//pausePanel.SetActive (false);
 	}
 	// Update is called once per frame
 	void Update ()
@@ -19,7 +23,7 @@ public class UIManager : MonoBehaviour
 			PauseGame (true);
 		}
 		else {
-			PauseGame (false);
+			UnPauseGame (false);
 		}
 		
 		if (Input.GetKey ("r")) {
@@ -49,14 +53,25 @@ public class UIManager : MonoBehaviour
 	
 	void PauseGame(bool state){
 		if (state) {
-			
+
+			anim.enabled=true;
+			anim.Play("pauseanimation");
 			Time.timeScale = 0.0f;
 		} 
-		else {
+		//else {
+		//	Time.timeScale = 1.0f;
+			
+		//}
+		//pausePanel.SetActive (state);
+	}
+
+	void UnPauseGame(bool state){
+	
+		anim.Play("pauseanimation0");  
 			Time.timeScale = 1.0f;
 			
-		}
-		pausePanel.SetActive (state);
+
+	
 	}
 	
 	public void SwitchPause(){
