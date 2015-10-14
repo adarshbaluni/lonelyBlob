@@ -51,7 +51,7 @@ public class InputGestureBlobDraw : MonoBehaviour
 			
 			return;
     	}
-        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+        if (Input.GetMouseButtonDown(0)) //&& !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
         {
             m_mousePressed = true;
             m_isFirstBlock = true;
@@ -138,12 +138,71 @@ public class InputGestureBlobDraw : MonoBehaviour
         }
     }
 
+	//-----------------------------------------------------------------------
+
+
+
+	void UpdateAndRemoveTimeoutPlatforms()
+	{
+		
+		//Update Block Lifetimes
+		foreach(var block in m_blocks)
+		{
+			block.m_lifetime -= Time.deltaTime;
+			
+			Color newColor = block.m_block.GetComponent<Renderer>().material.color;
+			newColor.a -= Time.deltaTime/3.5f;
+			block.m_block.GetComponent<Renderer>().material.color = newColor;
+			
+		}
+		
+		//Store indices of expired blocks to remove them
+		List<int> removeIndices = new List<int>();
+		int index = 0;
+		foreach (var block in m_blocks)
+		{
+			
+			
+			if (block.m_lifetime < 0)
+			{
+				//Block has expired so mark for destruction
+				removeIndices.Add(index);
+			}
+			++index;
+		}
+		
+		foreach(var iB in removeIndices)
+		{
+			Destroy(m_blocks[iB].m_block);
+			m_blocks.RemoveAt(iB);
+		}
+	}
+//--------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+	/*
+
     void UpdateAndRemoveTimeoutPlatforms()
     {
+
         //Update Block Lifetimes
         foreach(var block in m_blocks)
         {
             block.m_lifetime -= Time.deltaTime;
+
+			Color newColor = block.m_block.GetComponent<Renderer>().material.color;
+			newColor.a -= Time.deltaTime/4.50f;
+			block.m_block.GetComponent<Renderer>().material.color = newColor;
+
         }
 
         //Store indices of expired blocks to remove them
@@ -151,6 +210,8 @@ public class InputGestureBlobDraw : MonoBehaviour
         int index = 0;
         foreach (var block in m_blocks)
         {
+
+
             if (block.m_lifetime < 0)
             {
                 //Block has expired so mark for destruction
@@ -161,11 +222,13 @@ public class InputGestureBlobDraw : MonoBehaviour
 
         foreach(var iB in removeIndices)
         {
-            Destroy(m_blocks[iB].m_block);
+			Destroy(m_blocks[iB].m_block);
             m_blocks.RemoveAt(iB);
         }
     }
 
+
+	*/
 
     public static Vector3 MouseScreenToWorld(Vector3 mousePosition)
     {

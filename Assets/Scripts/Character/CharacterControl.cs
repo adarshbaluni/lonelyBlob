@@ -110,17 +110,17 @@ public class CharacterControl : MonoBehaviour {
 
         offSet = (myBody.transform.position.y - camScr.getPostion().y);
         absOffSet = offSet > 0 ? offSet : -offSet;
-        if (absOffSet > 50)
+        if (absOffSet > 20)
         {
 
             // camScr.updatePosition(new Vector3(myBody.transform.position.x, camScr.getPostion().y, camScr.getPostion().z));
             if (offSet > 0)
             {
-                camScr.updatePosition(new Vector3(camScr.getPostion().x, myBody.transform.position.y - 50, camScr.getPostion().z));
+                camScr.updatePosition(new Vector3(camScr.getPostion().x, myBody.transform.position.y - 20, camScr.getPostion().z));
             }
             else
             {
-                camScr.updatePosition(new Vector3(camScr.getPostion().x, myBody.transform.position.y + 50, camScr.getPostion().z));
+                camScr.updatePosition(new Vector3(camScr.getPostion().x, myBody.transform.position.y + 20, camScr.getPostion().z));
             }
         }
 
@@ -242,7 +242,9 @@ public class CharacterControl : MonoBehaviour {
             m_animator.Play("JUMP");
             m_animator.SetBool("Airborn", true);
             //if (CrossPlatformInputManager.GetButton("JumpButton"))
-            myBody.AddForce(Vector2.up * jumpForce * 1000);
+         //   myBody.AddForce(Vector2.up * jumpForce * 1000);
+            myBody.velocity = new Vector2(myBody.velocity.x, 200);
+
             //isGround = false;
             //myBody.velocity = new Vector2(myBody.velocity.x, jumpForce * 200);
         }
