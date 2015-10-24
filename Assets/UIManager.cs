@@ -8,14 +8,27 @@ public class UIManager : MonoBehaviour
 	public  static bool isPaused;
 	public AudioSource jumpMusic;
 	private Animator anim;
+    public GameObject winPanel;
+    public GameObject losePanel;
+    public static GameObject s_winPanel; //Better make this a singleton
+    public static GameObject s_losePanel;
+
+
+    void Awake()
+    {
+        //TODO: Change for singleton
+        s_winPanel = winPanel;
+        s_losePanel = losePanel;
+    }
+
 	// Use this for initialization
 	void Start ()
 	{
 		isPaused = false;
 		anim = pausePanel.GetComponent<Animator> ();
-		anim.enabled = false;
-		//pausePanel.SetActive (false);
+        anim.enabled = false;
 	}
+
 	// Update is called once per frame
 	void Update ()
 	{
@@ -41,12 +54,14 @@ public class UIManager : MonoBehaviour
 	public void Restart(){
 
 		Win.isWon = false;
+		Angrypower.angry = false;
 		Application.LoadLevel ("LonelyBlob");
 		
 	}
 
 	public void Quit(){
 		Win.isWon = false;
+		Angrypower.angry = false;
 		Application.LoadLevel ("MainMenu");
 		
 	}

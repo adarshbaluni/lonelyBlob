@@ -21,14 +21,15 @@ public class InputGestureBlobDraw : MonoBehaviour
 	public GameObject m_BlobBlockPrefab;
     float m_blockRadiusSqr;
 	public static bool platformCreate=false;
-    public bool m_canDraw; //only activated when we are on lonely blob mode
+	public bool Draw=true; // for testing on PC set it to true , else set it to false for continuing on mobile
+    bool m_canDraw; //only activated when we are on lonely blob mode
     public float m_lifetime; //time for the blocks to dissapear
     public List<MapBlobBlock> m_blocks; //required to keep track of map blocks to destroy them
     Vector3 m_prevBlockPos; //needed for computing the next box orientation
     bool m_isFirstBlock = false; //first block of a gesture
     bool m_mousePressed = false;
     static float m_distanceToWorld = 4.5f; //Distance from camera to world plane where character is moving. Note: we should make this more generic to avoid bugs when camera zoom in and out
-
+	
 	// Use this for initialization
 	void Start () {
         //m_blockRadiusSqr = gameObject.GetComponent<BoxCollider2D>().size.x * gameObject.GetComponent<BoxCollider2D>().size.x *0.7f;
@@ -51,7 +52,7 @@ public class InputGestureBlobDraw : MonoBehaviour
 			
 			return;
     	}
-        if (Input.GetMouseButtonDown(0)) //&& !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+        if (Input.GetMouseButtonDown(0))// && !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
         {
             m_mousePressed = true;
             m_isFirstBlock = true;
@@ -71,6 +72,16 @@ public class InputGestureBlobDraw : MonoBehaviour
 
     IEnumerator crDrawPlatforms()
     {
+		if(Draw==false)
+		{
+		m_canDraw=CharacterControl.m_canDraw; // mobile testing
+		}
+		else if(Draw==true)
+		{
+		m_canDraw=true; // PC testing
+		}
+		
+		
         Vector3 blockOrient;
         while (true)
         {

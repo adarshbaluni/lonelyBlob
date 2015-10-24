@@ -53,18 +53,31 @@
      <Compile Include="Assets\Custom Assets\Scripts\Shot\ShotScript.cs" />
      <Compile Include="Assets\FallingObject.cs" />
      <Compile Include="Assets\LevelParser.cs" />
+     <Compile Include="Assets\LevelSelectScript.cs" />
      <Compile Include="Assets\LoadingScreen.cs" />
+     <Compile Include="Assets\LockLevel.cs" />
      <Compile Include="Assets\MainMenu.cs" />
      <Compile Include="Assets\MessageText.cs" />
+     <Compile Include="Assets\PlayerMovement.cs" />
      <Compile Include="Assets\Pointer.cs" />
      <Compile Include="Assets\Powerup.cs" />
+     <Compile Include="Assets\Scripts\Character\Angrypower.cs" />
      <Compile Include="Assets\Scripts\Character\BlobRegen.cs" />
      <Compile Include="Assets\Scripts\Character\CharacterControl.cs" />
      <Compile Include="Assets\Scripts\Character\Gun.cs" />
      <Compile Include="Assets\Scripts\Character\LifeBar.cs" />
      <Compile Include="Assets\Scripts\Character\MoveObject.cs" />
      <Compile Include="Assets\Scripts\Character\PowerupController.cs" />
+     <Compile Include="Assets\Scripts\Character\TutorialLevel\invisibleCollider1.cs" />
+     <Compile Include="Assets\Scripts\Character\TutorialLevel\invisibleCollider2.cs" />
+     <Compile Include="Assets\Scripts\Character\TutorialLevel\movingHand1.cs" />
+     <Compile Include="Assets\Scripts\Character\TutorialLevel\movingHand2.cs" />
+     <Compile Include="Assets\Scripts\Character\TutorialLevel\movingHand3.cs" />
+     <Compile Include="Assets\Scripts\Character\TutorialLevel\movingHand4.cs" />
+     <Compile Include="Assets\Scripts\Enemy\ArrowMover.cs" />
+     <Compile Include="Assets\Scripts\Enemy\ArrowShooting.cs" />
      <Compile Include="Assets\Scripts\Enemy\EnemyControl.cs" />
+     <Compile Include="Assets\Scripts\Enemy\walkingDetector.cs" />
      <Compile Include="Assets\Scripts\Environment\DamagePlayer.cs" />
      <Compile Include="Assets\Scripts\Environment\MovingPlatform.cs" />
      <Compile Include="Assets\Scripts\Environment\Win.cs" />
@@ -74,8 +87,8 @@
      <Compile Include="Assets\Scripts\Others\CloudScript.cs" />
      <Compile Include="Assets\UIManager.cs" />
      <Compile Include="Assets\dialog.cs" />
-     <None Include="Assets\Levels\level_test.xml" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
+     <None Include="Assets\Levels\level_test.xml" />
  <Reference Include="UnityEngine.Advertisements">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
  </Reference>

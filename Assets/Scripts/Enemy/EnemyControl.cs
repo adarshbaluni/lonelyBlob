@@ -28,14 +28,6 @@ public class EnemyControl : MonoBehaviour {
 		
 	}
 
-	void OnTriggerEnter2D(Collider2D collider){
-
-		if (collider.gameObject.tag == "Player") {
-			Destroy(gameObject);
-		}
-
-	}
-
 
 	// Update is called once per frame
 	void Update () {

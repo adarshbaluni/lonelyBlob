@@ -13,7 +13,7 @@ public class BlobRegen : MonoBehaviour {
 	}
 	void OnTriggerEnter2D ( Collider2D col) {  
 
-		if (col.gameObject.name == "Character") { 
+		if (col.gameObject.tag == "Player") { 
 			print("Collider enter");
 			life=true;
 			if(LifeBar.NoMoreCollide!=true){

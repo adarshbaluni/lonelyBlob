@@ -5,18 +5,19 @@ public class MainMenu : MonoBehaviour {
 
 	public GameObject mainMenu;
 	public GameObject controls;
+	public GameObject levelSelect;
 
 
 	void start(){
 	
 		controls.gameObject.SetActive (false);
-	
+		levelSelect.gameObject.SetActive (false);
 	
 	}
 
 
 	public void StartGame(){
-		mainMenu.gameObject.SetActive (false);
+		levelSelect.gameObject.SetActive (false);
 		LoadingScreen.show ();
 		Application.LoadLevel ("LonelyBlob");
 		
@@ -29,6 +30,13 @@ public class MainMenu : MonoBehaviour {
 
 	
 	}
+
+	public void LevelSelect(){
+		
+		mainMenu.gameObject.SetActive (false);
+		levelSelect.gameObject.SetActive (true);
+	}
+
 
 	public void Controls(){
 
