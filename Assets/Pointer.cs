@@ -5,6 +5,7 @@ public class Pointer : MonoBehaviour {
 	
 	public Transform goal; // Goal Position
 	public Transform player; //Player Position
+	public Transform cameraGame; 
 	//public Vector3 exit;
 	
 	public Vector3 dir;
@@ -16,7 +17,16 @@ public class Pointer : MonoBehaviour {
 		//goal = new Transform();
 		//goal.position = new Vector3(329.5f, 97.1f, 0.0f);
 		//exit = new Vector3(329.5f,97.1f,0.0f);
+        StartCoroutine(crSetReferences());
 	}
+
+    IEnumerator crSetReferences()
+    {
+        yield return null;
+        goal = GameObject.FindGameObjectWithTag("Goal").transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        cameraGame = Camera.main.transform;
+    }
 	
 	void Update(){
 		
@@ -28,7 +38,7 @@ public class Pointer : MonoBehaviour {
 		//dir.x = dir.x;
 		//transform.rotation = Quaternion.LookRotation(dir);
 		transform.rotation = Quaternion.FromToRotation(Vector3.up,dir);
-		tempPos =  new Vector3(player.position.x,player.position.y + 15.0f,player.position.z);
+		tempPos =  new Vector3(player.position.x,cameraGame.position.y + 56.0f,player.position.z);
 		transform.position = tempPos;
 		
 		

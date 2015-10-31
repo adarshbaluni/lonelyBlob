@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityStandardAssets.CrossPlatformInput;
+using UnityEngine.UI;
 
 public class CharacterControl : MonoBehaviour {
     //Camera parameters
@@ -17,7 +18,9 @@ public class CharacterControl : MonoBehaviour {
     public bool m_useAutomaticMovement = true;
     public float m_autoMoveSpeed = 5.0f;
     public int m_velDir = -1;
-
+	//timer in game
+	public Text timerText;
+	protected float  totalTime = 0f;
     //Jump params
 	public int jumpForce = 5;
     public Vector2 direction = new Vector2(1f, 0f);
@@ -27,7 +30,6 @@ public class CharacterControl : MonoBehaviour {
     float lastPlayerAccel = 0;
 	public static bool m_canDraw=false;
 	public static bool isTap=true;
-
     //Deprecated params ?
 	Sprite playerFwd;
 	Sprite playerReverse;
@@ -50,7 +52,16 @@ public class CharacterControl : MonoBehaviour {
 		myBody = this.GetComponent<Rigidbody2D>();
         m_animator = GetComponent<Animator>();
         cam = Camera.main;
+
+        StartCoroutine(crSetReferences());
 	}
+
+    IEnumerator crSetReferences()
+    {
+        yield return null;
+        timerText = GameObject.FindGameObjectWithTag("ScoreText").GetComponent<Text>();
+
+    }
 
 	void FixedUpdate ()
 	{
@@ -76,36 +87,19 @@ public class CharacterControl : MonoBehaviour {
             OnJumpButtonClicked();
             
         }
-
-
-
-
-		
-		
-			//Jump
-
-			
+	
 		if (m_state==CharacterState.GROUND) {
 			//Jump
 			
 			
 			if (Input.touchCount == 2 && Input.GetTouch (0).phase== TouchPhase.Stationary && Input.GetTouch (1).phase==TouchPhase.Stationary) 
 			{
-				
 				m_canDraw = false;
-
-				
-				OnJumpButtonClicked();
-
-
-				
+				OnJumpButtonClicked();				
 				
 			} 	else if(Input.touchCount==1 && Input.GetTouch(0).phase==TouchPhase.Moved) {
-				m_canDraw=true;
-				
-			}
-
-			
+				m_canDraw=true;	
+			}		
 		} else {
 			
 			if (Input.touchCount == 1 && Input.GetTouch(0).phase==TouchPhase.Moved) {
@@ -114,11 +108,6 @@ public class CharacterControl : MonoBehaviour {
 			}
 			
 		}
-
-
-
-
-
 		/* if (Input.touchCount == 1 && Input.GetTouch (0).phase == TouchPhase.Stationary) {
 				i_state = InputState.TAP;
 		} else if (Input.GetTouch (0).phase == TouchPhase.Moved && Input.touchCount==1) {
@@ -193,7 +182,15 @@ public class CharacterControl : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		int tempScore = 0;
         UpdateCameraPosition();
+
+		//added timer ingame
+		if(!Win.isWon){
+			totalTime += Time.deltaTime;
+			tempScore = (int) totalTime;
+			timerText.text = "Time: " + tempScore.ToString ();
+		}
 		if(Input.GetAxis("Vertical") != 0){
 			//Create move vector based on keyboard input
 			Vector3 move = new Vector3 (0, Input.GetAxis ("Vertical"), 0);
@@ -280,7 +277,7 @@ public class CharacterControl : MonoBehaviour {
         float velY = myBody.velocity.y;
         if (m_state == CharacterState.JUMPING || m_state == CharacterState.FALLING)
         {
-            velY -= (Time.deltaTime * 500.0f);
+            velY -= (Time.deltaTime * 300.0f);
         }
         myBody.velocity = new Vector2(velX, velY); //FPS independent velocity
 
@@ -339,7 +336,7 @@ public class CharacterControl : MonoBehaviour {
 				m_animator.SetBool("Airborn", true);
             //if (CrossPlatformInputManager.GetButton("JumpButton"))
             //myBody.AddForce(Vector2.up * jumpForce * 1000);
-            myBody.velocity = new Vector2(myBody.velocity.x, 250);
+            myBody.velocity = new Vector2(myBody.velocity.x, 200);
 
             //isGround = false;
             //myBody.velocity = new Vector2(myBody.velocity.x, jumpForce * 200);

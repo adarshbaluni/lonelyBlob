@@ -163,6 +163,7 @@ public class InputGestureBlobDraw : MonoBehaviour
 			
 			Color newColor = block.m_block.GetComponent<Renderer>().material.color;
 			newColor.a -= Time.deltaTime/3.5f;
+			newColor.r += Time.deltaTime;
 			block.m_block.GetComponent<Renderer>().material.color = newColor;
 			
 		}

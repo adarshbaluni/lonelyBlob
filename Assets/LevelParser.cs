@@ -3,7 +3,8 @@ using System.Collections;
 using System.IO;
 using System.Collections.Generic;
 
-public enum MapElementType { BLOCK = 1, PLATFORM, ENEMY, EMPTY, CHARACTER, GOAL, SPIKES_SOUTH, SPIKES_NORTH, SPIKES_WEST, SPIKES_EAST, BLOB_REGEN};
+public enum MapElementType { BLOCK = 1, PLATFORM, BAT, EMPTY, CHARACTER, GOAL, SPIKES_SOUTH, SPIKES_NORTH, SPIKES_WEST, SPIKES_EAST, BLOB_REGEN,
+	BREAKABLE_WALL,ARROW_TRAP,MOVING_PLATF,PLAYER_DETECTOR};
 
 public struct MapElement
 {
@@ -31,7 +32,7 @@ public struct MapElement
             case "PLATFORM":
                 return MapElementType.PLATFORM;
             case "ENEMY":
-                return MapElementType.ENEMY;
+				return MapElementType.BAT;
             case "CHARACTER":
                 return MapElementType.CHARACTER;
             case "GOAL":
@@ -46,6 +47,14 @@ public struct MapElement
                 return MapElementType.SPIKES_EAST;
             case "BLOB_REGEN":
                 return MapElementType.BLOB_REGEN;
+			case "BREAKABLE_WALL":
+				return MapElementType.BREAKABLE_WALL;
+			case "ARROW_TRAP":
+				return MapElementType.ARROW_TRAP;
+			case "MOVING_PLATF":
+				return MapElementType.MOVING_PLATF;
+			case "PLAYER_DETECTOR":
+				return MapElementType.PLAYER_DETECTOR;
             default:
                 Debug.Assert(false, "Unknown map element");
                 break;
@@ -59,11 +68,15 @@ public class LevelParser : MonoBehaviour {
 
     public GameObject pfBlock;
     public GameObject pfPlatform;
-    public GameObject pfEnemy;
+    public GameObject pfBat;
     public GameObject pfCharacter;
     public GameObject pfGoal;
     public GameObject pfSpikes;
     public GameObject pfBlobRegen;
+	public GameObject pfBreakableWall;
+	public GameObject pfArrowTrap;
+	public GameObject pfMovingPlatform;
+	public GameObject pfPlayerDetector;
     
     static public int tilesX, tilesY;
     static public float tileSize;
@@ -80,7 +93,7 @@ public class LevelParser : MonoBehaviour {
         symbolToElemTypeDict = new Dictionary<int, MapElementType>();
 
         mapElemDict[MapElementType.BLOCK] = new MapElement(pfBlock, MapElementType.BLOCK);
-        mapElemDict[MapElementType.ENEMY] = new MapElement(pfEnemy, MapElementType.ENEMY);
+		mapElemDict[MapElementType.BAT] = new MapElement(pfBat, MapElementType.BAT);
         mapElemDict[MapElementType.PLATFORM] = new MapElement(pfPlatform, MapElementType.PLATFORM);
         mapElemDict[MapElementType.CHARACTER] = new MapElement(pfCharacter, MapElementType.CHARACTER);
         mapElemDict[MapElementType.GOAL] = new MapElement(pfGoal, MapElementType.GOAL);
@@ -89,6 +102,12 @@ public class LevelParser : MonoBehaviour {
         mapElemDict[MapElementType.SPIKES_WEST] = new MapElement(pfSpikes, MapElementType.SPIKES_WEST);
         mapElemDict[MapElementType.SPIKES_EAST] = new MapElement(pfSpikes, MapElementType.SPIKES_EAST);
         mapElemDict[MapElementType.BLOB_REGEN] = new MapElement(pfBlobRegen, MapElementType.BLOB_REGEN);
+
+		mapElemDict[MapElementType.BREAKABLE_WALL] = new MapElement(pfBreakableWall, MapElementType.BREAKABLE_WALL);
+		mapElemDict[MapElementType.ARROW_TRAP] = new MapElement(pfArrowTrap, MapElementType.ARROW_TRAP);
+		mapElemDict[MapElementType.MOVING_PLATF] = new MapElement(pfMovingPlatform, MapElementType.MOVING_PLATF);
+		mapElemDict[MapElementType.PLAYER_DETECTOR] = new MapElement(pfPlayerDetector, MapElementType.PLAYER_DETECTOR);
+
         //TODO: Add prefabs for other elements
 
         //MapElementType[,] map = LoadMap(Application.dataPath + "/testLevel.csv");
