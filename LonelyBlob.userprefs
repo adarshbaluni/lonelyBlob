@@ -1,8 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Pointer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\UIManager.cs">
     <Files>
-      <File FileName="Assets\Pointer.cs" Line="32" Column="70" />
+      <File FileName="Assets\UIManager.cs" Line="58" Column="31" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

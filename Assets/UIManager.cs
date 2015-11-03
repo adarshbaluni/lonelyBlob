@@ -51,11 +51,11 @@ public class UIManager : MonoBehaviour
 		Debug.Log (Application.levelCount);
 	}
 	
-	public void Restart(){
+	public void Restart(string level){
 
 		Win.isWon = false;
 		Angrypower.angry = false;
-		Application.LoadLevel ("LonelyBlob");
+		Application.LoadLevel (level);
 		
 	}
 
