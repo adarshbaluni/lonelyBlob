@@ -91,7 +91,9 @@ public class LifeBar : MonoBehaviour {
 			
 		}
 
-		if(InputGestureBlobDraw.platformCreate && Input.touchCount==1){
+		//&& Input.touchCount==1
+
+		if(InputGestureBlobDraw.platformCreate){
 			//print ("cominnng here");
 			if(barDisplay>=0){
 				barDisplay-=LifeBarDecreaseVar;

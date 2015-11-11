@@ -55,7 +55,7 @@ public class UIManager : MonoBehaviour
 
 		Win.isWon = false;
 		Angrypower.angry = false;
-		Application.LoadLevel (level);
+		Application.LoadLevel (Application.loadedLevelName);
 		
 	}
 

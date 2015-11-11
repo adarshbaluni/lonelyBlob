@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour {
 	private Animator animPlay;
 	private Animator animControl;
 	private Animator animQuit;
+	public static int levels = 0;
 
 	void start(){
 	
@@ -22,10 +23,11 @@ public class MainMenu : MonoBehaviour {
 	}
 
 
-	public void StartGame(){
+	public void StartGame(int a){
 		levelSelect.gameObject.SetActive (false);
+		//levels = a;
 		LoadingScreen.show ();
-		Application.LoadLevel ("LonelyBlob");
+		Application.LoadLevel ("Level"+a.ToString());
 		
 	}
 

@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class CharacterControl : MonoBehaviour {
     //Camera parameters
     public Camera cam;
-    public int cameraYOffset = 30;
-    public int cameraXOffset = 10;
+    public int cameraX1Offset = 0;
+    public int cameraX2Offset = 0;
     bool freeCamera = false;
 
     //Movement params
@@ -20,7 +20,7 @@ public class CharacterControl : MonoBehaviour {
     public int m_velDir = -1;
 	//timer in game
 	public Text timerText;
-	protected float  totalTime = 0f;
+	public static float  totalTime = 0f;
     //Jump params
 	public int jumpForce = 5;
     public Vector2 direction = new Vector2(1f, 0f);
@@ -34,6 +34,10 @@ public class CharacterControl : MonoBehaviour {
 	Sprite playerFwd;
 	Sprite playerReverse;
 	Sprite playerSticky;
+
+    //public Transform topLeft;
+    //public Transform botRight;
+    public LayerMask raycastMask;
 
     enum CharacterState { GROUND, JUMPING, FALLING };
 	public enum InputState { TAP, GESTURE, NOTHING};
@@ -52,8 +56,7 @@ public class CharacterControl : MonoBehaviour {
 		myBody = this.GetComponent<Rigidbody2D>();
         m_animator = GetComponent<Animator>();
         cam = Camera.main;
-
-        StartCoroutine(crSetReferences());
+		StartCoroutine(crSetReferences());
 	}
 
     IEnumerator crSetReferences()
@@ -165,19 +168,24 @@ public class CharacterControl : MonoBehaviour {
                 camScr.updatePosition(new Vector3(camScr.getPostion().x, myBody.transform.position.y + 20, camScr.getPostion().z));
             }
         }
-        //float maxBound = LevelParser.tileSize/2.0f;
-        //float minBound = LevelParser.MapBounds.x;
-        //float clampX = Mathf.Clamp(camScr.getPostion().x,minBound,maxBound);
-        //camScr.updatePosition(new Vector3(clampX, camScr.getPostion().y, camScr.getPostion().z));
-
- 		if (camScr.getPostion().x < -300)
+//		float maxBound = LevelParser.tileSize/2.0f - (float)(cam.orthographicSize * cam.aspect);
+//		float minBound = LevelParser.MapBounds.x +(float)(cam.orthographicSize * cam.aspect);
+//        float clampX = Mathf.Clamp(camScr.getPostion().x,minBound,maxBound-5);
+//        camScr.updatePosition(new Vector3(clampX , camScr.getPostion().y, camScr.getPostion().z));
+//
+//		minBound = LevelParser.tileSize/2.0f + (float)(cam.orthographicSize);
+//		maxBound = LevelParser.MapBounds.y - (float)(cam.orthographicSize);
+//		clampX = Mathf.Clamp(camScr.getPostion().y,minBound,maxBound);
+//		camScr.updatePosition(new Vector3(camScr.getPostion().x, clampX , camScr.getPostion().z));
+		/*
+		if (camScr.getPostion().x < cameraX1Offset)
         {
-            camScr.updatePosition(new Vector3(-300, camScr.getPostion().y, camScr.getPostion().z));
+			camScr.updatePosition(new Vector3(cameraX1Offset, camScr.getPostion().y, camScr.getPostion().z));
         }
-        else if (camScr.getPostion().x > 20)
+		else if (camScr.getPostion().x > cameraX1Offset)
         {
-            camScr.updatePosition(new Vector3(20, camScr.getPostion().y, camScr.getPostion().z));
-        }
+			camScr.updatePosition(new Vector3(cameraX2Offset, camScr.getPostion().y, camScr.getPostion().z));
+        }*/
     }
 
 	// Update is called once per frame
@@ -189,7 +197,7 @@ public class CharacterControl : MonoBehaviour {
 		if(!Win.isWon){
 			totalTime += Time.deltaTime;
 			tempScore = (int) totalTime;
-			timerText.text = "Time: " + tempScore.ToString ();
+			timerText.text = "T i m e : " + tempScore.ToString ();
 		}
 		if(Input.GetAxis("Vertical") != 0){
 			//Create move vector based on keyboard input
@@ -211,11 +219,26 @@ public class CharacterControl : MonoBehaviour {
         float playerAccel = myBody.velocity.y - lastFrameVelY;
         float deltaAccel = playerAccel - lastPlayerAccel; //change in acceleration
         float fallingAccelTolerance = -50.0f;
-        if (m_state == CharacterState.JUMPING && lastFrameVelY > 0 && myBody.velocity.y <= 0)
+        
+        if (isGrounded() && m_state == CharacterState.FALLING) //Testing
+        {
+            m_state = CharacterState.GROUND;
+            if (Angrypower.angry == true)
+            {
+                m_animator.Play("AngryBlobwalk");
+            }
+            else
+            {
+                m_animator.Play("lAND");
+            }
+        }
+
+        if (m_state == CharacterState.JUMPING && lastFrameVelY > 0 && myBody.velocity.y <= 0) 
         {
             //velocity just changed from positive to negative so character now is falling
             m_state = CharacterState.FALLING;
-        }else if (m_state == CharacterState.GROUND && myBody.velocity.y < -50.0f)
+        }
+        else if (m_state == CharacterState.GROUND && myBody.velocity.y < -50.0f)
         {
             m_state = CharacterState.FALLING;
 			if(Angrypower.angry==true)
@@ -303,6 +326,43 @@ public class CharacterControl : MonoBehaviour {
 
 */
 
+    //bool isGrounded()
+    //{
+    //    //RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 5.0f);
+    //    Renderer rend = GetComponent<Renderer>();
+    //    //Vector2 topLeft = new Vector2(-rend.bounds.extents.x / 3.0f , 0);
+    //    //Vector2 botRight = new Vector2(rend.bounds.extents.x / 3.0f, -rend.bounds.extents.y *5.0f);
+    //    Collider2D col = Physics2D.OverlapArea(topLeft.position,botRight.position);
+    //    bool grounded = false;
+    //    if(col.gameObject.tag != "Player")
+    //    {
+    //        Debug.Log("Character is grounded");
+    //        grounded = true;
+    //    }
+        
+    //    return grounded;
+    //}
+
+    bool isGrounded()
+    {
+        Renderer rend = GetComponent<Renderer>();
+        RaycastHit2D hit = Physics2D.Raycast(transform.position - new Vector3(0,rend.bounds.extents.y,0), Vector2.down, 5.0f);
+       
+        bool grounded = false;
+        if(hit.collider == null)
+        {
+            return grounded;
+        }
+
+        if (hit.collider.gameObject.tag != "Player")
+        {
+            Debug.Log("Character is grounded");
+            grounded = true;
+        }
+
+        return grounded;
+    }
+
 	void reverseDirection(float inputX){
 		if (inputX < 0)
 			new_direction = 1;
@@ -341,5 +401,12 @@ public class CharacterControl : MonoBehaviour {
             //isGround = false;
             //myBody.velocity = new Vector2(myBody.velocity.x, jumpForce * 200);
         }
+    }
+
+    public void OnDeath()
+    {
+        m_animator.Play("Death");
+        myBody.GetComponent<Collider>().enabled = false;
+       // while (m_animator.GetCurrentAnimatorStateInfo(0).IsName("Death"));
     }
 }
