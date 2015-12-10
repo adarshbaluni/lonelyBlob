@@ -3,10 +3,12 @@ using System.Collections;
 
 public class DynamicSwitch : MonoBehaviour {
 
-	public static bool openStaticDoor=false;
-	public  SpriteRenderer spriteRenderer;
-	public Sprite sprite1; 
-	public Sprite sprite2;
+	public static bool openDynamicDoor=false;
+	public  static SpriteRenderer spriteRenderer;
+	public  Sprite sprite1; 
+	public  Sprite sprite2;
+	public static bool currSprite1=false;
+	public static bool charOnSwitch=false;
 	// Use this for initialization
 	void Start () {
 		spriteRenderer = GetComponent<SpriteRenderer>(); // we are accessing the SpriteRenderer that is attached to the Gameobject
@@ -18,30 +20,38 @@ public class DynamicSwitch : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (invisibleColliderSwitch1.mvdFrmSwitch)
+		//print ("current sprite" + spriteRenderer.sprite);)
+
+		if(spriteRenderer.sprite ==sprite2)
+			currSprite1=true;
+		ChangeTheSprite ();
 			
-			ChangeTheSprite ();
 		
 	}
 	void OnTriggerEnter2D( Collider2D col) {  
 		
-		if (col.gameObject.name == "pf_Character") { 
-			ChangeTheSprite();
-			print("AJAJAAA");
-			openStaticDoor=true;
-			
-		}
+		if (col.gameObject.name == "pf_Character(Clone)") {
+		//	print ("hitting the switch");
+			charOnSwitch=true;
+			//print ("value of  charOnSwitch"+charOnSwitch);
 	}
-	void ChangeTheSprite ()
-	{
-		if (!invisibleColliderSwitch1.mvdFrmSwitch&&spriteRenderer.sprite == sprite1) // if the spriteRenderer sprite = sprite1 then change to sprite2
-		{
+	
+}
+	void ChangeTheSprite(){
+		if (charOnSwitch) {
 			spriteRenderer.sprite = sprite2;
 		}
 		else
-			
-		{
-			spriteRenderer.sprite = sprite1; // otherwise change it back to sprite1
+		if (spriteRenderer.sprite == sprite1 && !charOnSwitch) {
+			spriteRenderer.sprite = sprite1;
+
 		}
+		else
+		
+		if (spriteRenderer.sprite == sprite2 && !charOnSwitch) {
+			spriteRenderer.sprite = sprite1;
+			
+		}
+			
 	}
 }

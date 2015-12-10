@@ -17,7 +17,7 @@ public class MoveObject : MonoBehaviour {
 
         Vector2 tempCurrent = new Vector2(transform.position.x, transform.position.y);
         Vector2 tempGoal = new Vector2(goalPos.x, goalPos.y);
-        Vector2 result = Vector2.Lerp(tempCurrent,tempGoal,Time.deltaTime*2);
+        Vector2 result = Vector2.Lerp(tempCurrent,tempGoal,Time.deltaTime*1.0f);
         transform.position = new Vector3(result.x, result.y, transform.position.z);
 	}
 

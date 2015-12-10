@@ -86,6 +86,7 @@ public struct MapElement
     }
 }
 
+[ExecuteInEditMode]
 public class LevelParser : MonoBehaviour {
     
 
@@ -110,72 +111,84 @@ public class LevelParser : MonoBehaviour {
     static public Vector2 MapBounds;
 
 
+    public bool ExecuteParsing = false;
+
     void Start()
     {
 
-		//string level = MainMenu.levels.ToString ();
-        mapElemDict = new Dictionary<MapElementType, MapElement>();
-        symbolToElemTypeDict = new Dictionary<int, MapElementType>();
-
-        mapElemDict[MapElementType.BLOCK] = new MapElement(pfBlock, MapElementType.BLOCK, Quaternion.identity,Vector2.zero);
-        mapElemDict[MapElementType.BAT] = new MapElement(pfBat, MapElementType.BAT, Quaternion.identity, Vector2.zero);
-        mapElemDict[MapElementType.PLATFORM] = new MapElement(pfPlatform, MapElementType.PLATFORM, Quaternion.identity, Vector2.zero);
-        mapElemDict[MapElementType.CHARACTER] = new MapElement(pfCharacter, MapElementType.CHARACTER, Quaternion.identity, Vector2.zero);
-        mapElemDict[MapElementType.GOAL] = new MapElement(pfGoal, MapElementType.GOAL, Quaternion.identity, Vector2.zero);
-        mapElemDict[MapElementType.ANGRY_POWERUP] = new MapElement(pfAngry, MapElementType.ANGRY_POWERUP, Quaternion.identity, Vector2.zero);
-        mapElemDict[MapElementType.SPIKES_SOUTH] = new MapElement(pfSpikes, MapElementType.SPIKES_SOUTH, Quaternion.Euler(0, 0, 180), new Vector2(0, 5));
-        mapElemDict[MapElementType.SPIKES_NORTH] = new MapElement(pfSpikes, MapElementType.SPIKES_NORTH, Quaternion.identity, new Vector2(0,-5));
-        mapElemDict[MapElementType.SPIKES_WEST] = new MapElement(pfSpikes, MapElementType.SPIKES_WEST, Quaternion.Euler(0, 0, -90), new Vector2(-5, 0));
-        mapElemDict[MapElementType.SPIKES_EAST] = new MapElement(pfSpikes, MapElementType.SPIKES_EAST, Quaternion.Euler(0, 0, 90), new Vector2(5, 0));
-        mapElemDict[MapElementType.BLOB_REGEN] = new MapElement(pfBlobRegen, MapElementType.BLOB_REGEN, Quaternion.identity, Vector2.zero);
-        mapElemDict[MapElementType.BREAKABLE_WALL] = new MapElement(pfBreakableWall, MapElementType.BREAKABLE_WALL, Quaternion.identity, Vector2.zero);
-        mapElemDict[MapElementType.ARROW_TRAP] = new MapElement(pfArrowTrap, MapElementType.ARROW_TRAP, Quaternion.identity, Vector2.zero);
-        mapElemDict[MapElementType.MOVING_PLATF] = new MapElement(pfMovingPlatform, MapElementType.MOVING_PLATF, Quaternion.identity, Vector2.zero);
-        mapElemDict[MapElementType.PLAYER_DETECTOR] = new MapElement(pfPlayerDetector, MapElementType.PLAYER_DETECTOR, Quaternion.identity, Vector2.zero);
-
-        //TODO: Add prefabs for other elements
-
-        //MapElementType[,] map = LoadMap(Application.dataPath + "/testLevel.csv");
-        //#if defined(UNITY_EDITOR)
-        //string path;
-        //if (Application.platform == RuntimePlatform.WindowsEditor)
-        //{
-        //    path = Application.dataPath + "/StreamingAssets";
-        //}
-        //else if(Application.platform == RuntimePlatform.Android)
-        //{
-        //    path = "jar:file://" + Application.dataPath + "!/assets";
-
-        //}
 
 
-        //StartCoroutine(crLoadMap("/Level_5_Test.csv"));
-        StartCoroutine(crLoadMap("/Edgar_Level_1.csv"));
-
-        //#endif
+        //StartCoroutine(crLoadMap("/Edgar_Level_1.csv"));
+        //StartCoroutine(crLoadMap("/Edgar_Level_1.csv"));
+        //StartCoroutine(crLoadMap("Puranjay_Level.csv"));
 
        
+        //#endif
+        ExecuteParsing = false;
+       
+    }
+
+	void InitializeState()
+	{
+		mapElemDict = new Dictionary<MapElementType, MapElement>();
+		symbolToElemTypeDict = new Dictionary<int, MapElementType>();
+		
+		mapElemDict[MapElementType.BLOCK] = new MapElement(pfBlock, MapElementType.BLOCK, Quaternion.identity,Vector2.zero);
+		mapElemDict[MapElementType.BAT] = new MapElement(pfBat, MapElementType.BAT, Quaternion.identity, Vector2.zero);
+		mapElemDict[MapElementType.PLATFORM] = new MapElement(pfPlatform, MapElementType.PLATFORM, Quaternion.identity, Vector2.zero);
+		mapElemDict[MapElementType.CHARACTER] = new MapElement(pfCharacter, MapElementType.CHARACTER, Quaternion.identity, Vector2.zero);
+		mapElemDict[MapElementType.GOAL] = new MapElement(pfGoal, MapElementType.GOAL, Quaternion.identity, Vector2.zero);
+		mapElemDict[MapElementType.ANGRY_POWERUP] = new MapElement(pfAngry, MapElementType.ANGRY_POWERUP, Quaternion.identity, Vector2.zero);
+		mapElemDict[MapElementType.SPIKES_SOUTH] = new MapElement(pfSpikes, MapElementType.SPIKES_SOUTH, Quaternion.Euler(0, 0, 180), new Vector2(0, 0));
+		mapElemDict[MapElementType.SPIKES_NORTH] = new MapElement(pfSpikes, MapElementType.SPIKES_NORTH, Quaternion.identity, new Vector2(0,0));
+		mapElemDict[MapElementType.SPIKES_WEST] = new MapElement(pfSpikes, MapElementType.SPIKES_WEST, Quaternion.Euler(0, 0, -90), new Vector2(0, 0));
+		mapElemDict[MapElementType.SPIKES_EAST] = new MapElement(pfSpikes, MapElementType.SPIKES_EAST, Quaternion.Euler(0, 0, 90), new Vector2(0, 0));
+		mapElemDict[MapElementType.BLOB_REGEN] = new MapElement(pfBlobRegen, MapElementType.BLOB_REGEN, Quaternion.identity, Vector2.zero);
+		mapElemDict[MapElementType.BREAKABLE_WALL] = new MapElement(pfBreakableWall, MapElementType.BREAKABLE_WALL, Quaternion.identity, Vector2.zero);
+		mapElemDict[MapElementType.ARROW_TRAP] = new MapElement(pfArrowTrap, MapElementType.ARROW_TRAP, Quaternion.identity, Vector2.zero);
+		mapElemDict[MapElementType.MOVING_PLATF] = new MapElement(pfMovingPlatform, MapElementType.MOVING_PLATF, Quaternion.identity, Vector2.zero);
+		mapElemDict[MapElementType.PLAYER_DETECTOR] = new MapElement(pfPlayerDetector, MapElementType.PLAYER_DETECTOR, Quaternion.identity, Vector2.zero);
+	}
+
+    void Update()
+    {
+        if (ExecuteParsing)
+        {
+			InitializeState ();
+            string finalPath = Application.dataPath + "/StreamingAssets/Puranjay_Level1.csv";
+
+            MapElementType[,] map = LoadMap(finalPath);
+            BuildMap(map);
+
+            ExecuteParsing = false;
+        }
     }
 
     IEnumerator crLoadMap(string filename)
     {
-        string filePath = Application.streamingAssetsPath;
+        string finalPath;
         
 #if UNITY_ANDROID && !UNITY_EDITOR
+        string filePath = "jar:file://" + Application.dataPath + "!/assets/";
         if (filePath.Contains("://"))
         {
-            WWW www = new WWW(filePath);
+             WWW www = new WWW(filePath + filename);
             yield return www;
-            filePath = www.text;
+            finalPath = www.text;
+            if (!string.IsNullOrEmpty(www.error))
+            {
+                Debug.LogError ("Can't read map file !");
+            }
         }
         else
-            filePath = System.IO.File.ReadAllText(filePath);
-#endif 
+            finalPath = System.IO.File.ReadAllText(filePath);
+#else
         yield return null;
-        //MapElementType[,] map = LoadMap(path+"/"+level+".csv");
-        MapElementType[,] map = LoadMap(filePath+filename);
+        finalPath = Application.dataPath + "/StreamingAssets/" + filename;
+#endif
 
-        //MapElementType[,] map = LoadMap("Assets/Levels/Level_5_Test.csv");
+        MapElementType[,] map = LoadMap(finalPath);
+
         BuildMap(map);
     }
 
@@ -224,7 +237,7 @@ public class LevelParser : MonoBehaviour {
         Vector2 objSize = new Vector2(width * tileSize, height * tileSize); //target size for the object
         //Quaternion.FromToRotation(Vector3.right,)
         //Quaternion.EulerRotation();
-
+        
         GameObject mapObj = (GameObject)Instantiate(prefab, new Vector3(-col * tileSize - objSize.x / 2.0f + CustomOffset.x, row * tileSize + objSize.y / 2.0f + CustomOffset.y, 0), rotation);
         Renderer rend = mapObj.GetComponent<Renderer>();
 
@@ -258,11 +271,19 @@ public class LevelParser : MonoBehaviour {
 
     MapElementType[,] LoadMap(string filename)
     {
-        var fileReader = new StreamReader(File.OpenRead(filename));
+        #if UNITY_ANDROID && !UNITY_EDITOR
+            var fileReader = new StringReader(filename);
+        #else
+            var fileReader = new StreamReader(File.OpenRead(filename));
+        #endif
+
+
         string line;
         tilesX = 0;
         tilesY = 0;
         tileSize = 0;
+
+
 
         while (true)
         {
@@ -307,7 +328,7 @@ public class LevelParser : MonoBehaviour {
             foreach (var symbol in symbols)
             {
                 //Debug.Log("X: " + coordX + "Y: " + coordY);
-                Debug.Assert(!symbol.Equals(""), "Found an empty space in map file, replace it with a valid symbol !");
+                Debug.Assert(!symbol.Equals(""), "Found an empty space in map file at ("+coordX+","+coordY+"), replace it with a valid symbol !");
                     
                 map[coordY, coordX] = symbolToElemTypeDict[int.Parse(symbol)];
                 ++coordX;
@@ -319,7 +340,11 @@ public class LevelParser : MonoBehaviour {
         return map;
     }
 
+    #if UNITY_ANDROID && !UNITY_EDITOR
+    void ParseMapElementDefs(StringReader file)
+    #else
     void ParseMapElementDefs(StreamReader file)
+    #endif
     {
         string line;
         while(true)
@@ -332,6 +357,10 @@ public class LevelParser : MonoBehaviour {
             {
                 break;
             }
+			else if(symbolName.Equals(""))
+			{
+				continue; //ignore empty lines
+			}
 
             int symbol = int.Parse(tokens[1]);
             

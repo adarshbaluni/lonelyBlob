@@ -22,10 +22,19 @@ public class MainMenu : MonoBehaviour {
 	
 	}
 
+	public void StartTutorial(int a){
+		//levelSelect.gameObject.SetActive (false);
+		//levels = a;
+		//LoadingScreen.show ();
+		Application.LoadLevel ("FTUE"+a.ToString());
+		
+	}
+
 
 	public void StartGame(int a){
 		levelSelect.gameObject.SetActive (false);
 		//levels = a;
+		CharacterControl.totalTime = 0f;
 		LoadingScreen.show ();
 		Application.LoadLevel ("Level"+a.ToString());
 		

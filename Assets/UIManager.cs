@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     public GameObject losePanel;
     public static GameObject s_winPanel; //Better make this a singleton
     public static GameObject s_losePanel;
+	CharacterControl abc;
 
 
     void Awake()
@@ -27,6 +28,14 @@ public class UIManager : MonoBehaviour
 		isPaused = false;
 		anim = pausePanel.GetComponent<Animator> ();
         anim.enabled = false;
+		StartCoroutine(crSetReferences());
+	}
+
+	IEnumerator crSetReferences()
+	{
+		yield return null;
+		abc = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterControl>();
+		
 	}
 
 	// Update is called once per frame
@@ -40,7 +49,7 @@ public class UIManager : MonoBehaviour
 		}
 		
 		if (Input.GetKey ("r")) {
-			Debug.Log(Application.loadedLevel);
+			//Debug.Log(Application.loadedLevel);
 		}
 		
 		
@@ -48,14 +57,16 @@ public class UIManager : MonoBehaviour
 			SwitchPause();
 		}
 
-		Debug.Log (Application.levelCount);
+		//Debug.Log (Application.levelCount);
 	}
 	
 	public void Restart(string level){
 
 		Win.isWon = false;
 		Angrypower.angry = false;
+		CharacterControl.totalTime = 0f;
 		Application.LoadLevel (Application.loadedLevelName);
+
 		
 	}
 
@@ -103,9 +114,7 @@ public class UIManager : MonoBehaviour
     public void OnJumpButtonClicked()
     {
 
-		jumpMusic.volume = 1.0f;
-	
-        GameObject.Find("Character").GetComponent<Rigidbody2D>().AddForce(Vector2.up * 5000);
+		abc.OnJumpButtonClicked ();
 
 
     }

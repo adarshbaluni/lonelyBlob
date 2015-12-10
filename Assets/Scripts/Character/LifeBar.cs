@@ -11,15 +11,33 @@ public class LifeBar : MonoBehaviour {
 	public float LifeBarIncreaseVar=.10f;
 	public float LifeBarDecreaseVar=.009f;
 	public float InitialLifeVal=.25f;
-
+	public bool landscape=false;
+    //Audio
+    public AudioSource RegenAudio;
 	//public float floatStrength=1;
 	//public Vector2 floatStrength=1;
 	//public float originalY;
 
 	// Use this for initialization
 	void Start () {
-		pos = new Vector2(50,50);
-		size = new Vector2(205,33);
+		if (Screen.width > Screen.height) {
+			//print ("in landscape");
+			landscape = true;
+		} else {
+			//print("in potrait");
+		}
+
+		pos = new Vector2((float)0.05*Screen.width,(float)0.0118*Screen.height);
+	
+
+		//print ("Width=" + Screen.width + "Length=" + Screen.height);
+		if (landscape) {
+			//print("in landscape");
+			size = new Vector2 ((float)0.21 * Screen.width, (float).078 * Screen.height);
+		}
+		else
+			if(!landscape)
+			size = new Vector2((float)0.2*Screen.width,(float)0.04*Screen.height);
 		lifeBarInitial = true;
 
 		//this.originalY =transform.position.y;
@@ -33,7 +51,7 @@ public class LifeBar : MonoBehaviour {
 	public Texture2D warningTex;
 	
 	void OnGUI() {
-		print ("coming here");
+		//print ("sizeof  here");
 		//draw the background:
 		//Color oldColor = GUI.color;
      	GUI.BeginGroup(new Rect(pos.x, pos.y, size.x, size.y));
@@ -41,20 +59,34 @@ public class LifeBar : MonoBehaviour {
 		GUI.Box(new Rect(0,0, size.x, size.y), emptyTex);
 		
 		//draw the filled-in part:
-		
-		GUI.BeginGroup(new Rect(0,0, size.x * barDisplay, 120));
+		if(landscape)
+		GUI.BeginGroup(new Rect(0,0, size.x * barDisplay, (float).078*Screen.height));
+		else
+			if(!landscape)
+				GUI.BeginGroup(new Rect(0,0, size.x * barDisplay, (float).04*Screen.height));
+
 		//GUI.color = Color.blue;
 		if (barDisplay <= .25f) {
-			print ("coming here in warning");
+			//print ("coming here in warning");
 			if (Time.time % 1< .65) {
 			//GUI.color.a = 0;//Mathf.Lerp(1,0,Time.time*0.5);
-			GUI.Box (new Rect (0, 0, 210, 120), warningTex);
+				if(landscape)
+				GUI.Box (new Rect (0, 0,(float) 0.21*Screen.width, (float).078*Screen.height), warningTex);
+				else
+					if(!landscape)
+						GUI.Box (new Rect (0, 0,(float) 0.2*Screen.width, (float)0.04*Screen.height), warningTex);
+
 			}
 		
 		} else {
 			//GUI.color.a = 0;
-			print ("coming here in normal");
-			GUI.Box (new Rect (0, 0, 210, 120), fullTex);
+			//print ("coming here in normal");
+			if(landscape)
+				GUI.Box (new Rect (0, 0,(float) 0.21*Screen.width, (float).078*Screen.height), fullTex);
+			else
+				if(!landscape)
+					GUI.Box (new Rect (0, 0,(float) 0.2*Screen.width, (float)0.04*Screen.height), fullTex);
+
 		}
 		GUI.EndGroup();
 		GUI.EndGroup();
@@ -83,6 +115,7 @@ public class LifeBar : MonoBehaviour {
 			BlobRegen.life =false;
 			OutOfLife=false;
 			NoMoreCollide=false;
+                RegenAudio.Play();
 			}else if(barDisplay>=1.0f){
 				NoMoreCollide=true;
 			}
@@ -92,19 +125,40 @@ public class LifeBar : MonoBehaviour {
 		}
 
 		//&& Input.touchCount==1
+	if (!InputGestureBlobDraw.Draw) {
+			if (InputGestureBlobDraw.platformCreate && Input.touchCount==1)
 
-		if(InputGestureBlobDraw.platformCreate){
-			//print ("cominnng here");
-			if(barDisplay>=0){
-				barDisplay-=LifeBarDecreaseVar;
+				if (barDisplay >= 0) {
+					barDisplay -= LifeBarDecreaseVar;
+				}
+				if (barDisplay <= 0) {
+					OutOfLife = true;
+				}
+				if (barDisplay >= 0.0f) {
+					NoMoreCollide = false;
+				}
+
 			}
-			if (barDisplay<=0){
-				OutOfLife=true;
+		 else {
+
+			if (InputGestureBlobDraw.platformCreate) {// && Input.touchCount==1)
+				
+				if (barDisplay >= 0) {
+					barDisplay -= LifeBarDecreaseVar;
+				}
+				if (barDisplay <= 0) {
+					OutOfLife = true;
+				}
+				if (barDisplay >= 0.0f) {
+					NoMoreCollide = false;
+				}
+				
 			}
-			if (barDisplay >=0.0f) {
-				NoMoreCollide=false;
-			}
+
+
+
 		}
+
 		if (barDisplay >= 1.0f) {
 			NoMoreCollide=true;
 		}

@@ -25,6 +25,10 @@ public class DamagePlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+		if (Angrypower.angry==false && this.gameObject.tag=="MagmaWall") {
+			this.gameObject.GetComponent<BoxCollider2D>().isTrigger=false;		
+		}
         PauseGame(isLost);
     }
     void PauseGame(bool state)
@@ -32,35 +36,31 @@ public class DamagePlayer : MonoBehaviour
         losePanel.SetActive(state);
 
     }
-
-
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        if (Angrypower.angry == true)
-        {
-            if (col.gameObject.tag == "Player")
-            {
-                if (this.gameObject.tag == "Bat")
-                {
-                    Destroy(this.gameObject);
-                }
-            }
-        }
-    }
-
-
-
+	
+	
     public void OnCollisionEnter2D(Collision2D col)
-    {
-        if (col.gameObject.tag == "Player")
-        {
-            
-            isLost = true;
-			CharacterControl.totalTime = 0f;
-            //Destroy (col.gameObject);
-            Angrypower.angry = false;
-            Character.OnDeath();
-            Destroy (col.gameObject);
-        }
-    }
+    {	
+
+		if (col.gameObject.tag == "Player") {
+
+			if (Angrypower.angry == true) {
+
+				if (this.gameObject.tag == "Bat" || this.gameObject.tag == "MagmaWall" || this.gameObject.tag == "Snake") {
+					Destroy (this.gameObject);
+				}
+
+			}else if (this.gameObject.tag != "MagmaWall") {
+				
+					isLost = true;
+					CharacterControl.totalTime = 0f;
+					//Destroy (col.gameObject);
+					Angrypower.angry = false;
+					Character.OnDeath ();
+					Destroy (col.gameObject);
+				
+			}
+		
+		
+		}
+	}
 }

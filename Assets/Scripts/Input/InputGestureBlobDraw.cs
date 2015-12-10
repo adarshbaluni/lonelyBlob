@@ -2,6 +2,9 @@
 using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+
+
 
 [System.Serializable]
 public class MapBlobBlock
@@ -21,9 +24,9 @@ public class InputGestureBlobDraw : MonoBehaviour
 	public GameObject m_BlobBlockPrefab;
     float m_blockRadiusSqr;
 	public static bool platformCreate=false;
-	public bool Draw=true; // for testing on PC set it to true , else set it to false for continuing on mobile
-    bool m_canDraw; //only activated when we are on lonely blob mode
-    public float m_lifetime; //time for the blocks to dissapear
+    public static bool Draw=false; // for testing on PC set it to true , else set it to false for continuing on mobile
+    bool canDraw; //only activated when we are on lonely blob mode
+       public float m_lifetime; //time for the blocks to dissapear
     public List<MapBlobBlock> m_blocks; //required to keep track of map blocks to destroy them
     Vector3 m_prevBlockPos; //needed for computing the next box orientation
     bool m_isFirstBlock = false; //first block of a gesture
@@ -47,24 +50,46 @@ public class InputGestureBlobDraw : MonoBehaviour
 
 	// Update is called once per frame
 	void Update () {
-
-		if(UIManager.isPaused || Win.isWon || DamagePlayer.isLost){
-			
+		if(Draw==false)
+		{
+		canDraw=CharacterControl.m_canDraw; // mobile testing
+		}
+		else if(Draw==true)
+		{
+		canDraw=true; // PC testing
+		}
+	
+		if(UIManager.isPaused || Win.isWon || DamagePlayer.isLost){	
 			return;
     	}
-        if (Input.GetMouseButtonDown(0))// && !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
-        {
-            m_mousePressed = true;
-            m_isFirstBlock = true;
-            platformCreate = true;
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            m_mousePressed = false;
-            m_isFirstBlock = false;
-            platformCreate = false;
-        }
-        print("Mouse pressed: " + m_mousePressed);
+
+		if (!Draw) {
+			if (Input.GetMouseButtonDown (0) && !EventSystem.current.IsPointerOverGameObject (Input.GetTouch (0).fingerId)) {
+				m_mousePressed = true;
+				m_isFirstBlock = true;
+				platformCreate = true;
+			} else if (Input.GetMouseButtonUp (0)) {
+				m_mousePressed = false;
+				m_isFirstBlock = false;
+				platformCreate = false;
+			}
+		} else {
+
+			if (Input.GetMouseButtonDown (0)) {
+				m_mousePressed = true;
+				m_isFirstBlock = true;
+				platformCreate = true;
+			} else if (Input.GetMouseButtonUp (0)) {
+				m_mousePressed = false;
+				m_isFirstBlock = false;
+				platformCreate = false;
+			}
+
+
+
+
+		}
+
      
 		
         UpdateAndRemoveTimeoutPlatforms();
@@ -72,15 +97,7 @@ public class InputGestureBlobDraw : MonoBehaviour
 
     IEnumerator crDrawPlatforms()
     {
-		if(Draw==false)
-		{
-		m_canDraw=CharacterControl.m_canDraw; // mobile testing
-		}
-		else if(Draw==true)
-		{
-		m_canDraw=true; // PC testing
-		}
-		
+
 		
         Vector3 blockOrient;
         while (true)
@@ -91,7 +108,7 @@ public class InputGestureBlobDraw : MonoBehaviour
                 continue;
             }
 
-            if (m_canDraw && m_mousePressed)
+			if (canDraw && m_mousePressed) //&& Input.touchCount==1 )
             {
                 Vector3 newBlockPos = MouseScreenToWorld(Input.mousePosition);
 
@@ -119,6 +136,7 @@ public class InputGestureBlobDraw : MonoBehaviour
                 }
             }
 
+			
             yield return null;
         }
     }

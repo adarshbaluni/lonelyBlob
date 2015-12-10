@@ -2,14 +2,19 @@
 using System.Collections;
 
 public class movingHand3 : MonoBehaviour {
-	public float t=.35f;
-	public float l=10f;
-	public float posX=1f;
+	public float t;
+	public float l;
+	
+	public float posX;
+	public float msgX1;
+	public float msgX2;
+	public float msgX3;
+	public float msgX4;
+	public int msgSize=30;
 	// Use this for initialization
 	public GUIStyle customGuiStyle;
 	private bool printMessage=true;
-	
-	// Use this for initialization
+
 	void Start () {
 		
 	}
@@ -17,7 +22,7 @@ public class movingHand3 : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (invisibleCollider1.printMessage) {
-			Vector3 pos = new Vector3 (posX + Mathf.PingPong (15f * Time.time, 70), 40, 1);
+			Vector3 pos = new Vector3 (posX + Mathf.PingPong (15f * Time.time, t), l, 1);
 			transform.position = pos;
 			/*if(isIntroShown) 
 		{
@@ -41,9 +46,9 @@ public class movingHand3 : MonoBehaviour {
 				//GUIStyle myStyle = new GUIStyle();
 				//myStyle.font = 15;
 				//GUI.Color = new Color(1.0f, 1.0f, 1.0f, 0.5f); //0.5 is half opacity 
-				customGuiStyle.fontSize = 20;
+				customGuiStyle.fontSize = msgSize;
 				customGuiStyle.richText = true;
-				GUI.Box (new Rect (200, 200, 750, 50), "<color=white>Create a platform to move ahead!</color>", customGuiStyle);
+				GUI.Box (new Rect (msgX1, msgX2, msgX3, msgX4), "<color=white>Create a platform to move ahead!</color>", customGuiStyle);
 			}
 		}
 		

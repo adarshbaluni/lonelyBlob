@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Audio\Scripts\AudioPlayer.cs" />
      <Compile Include="Assets\Audio\Scripts\AudioTestScript.cs" />
+     <Compile Include="Assets\CharacterStateBehavior.cs" />
      <Compile Include="Assets\Custom Assets\Scripts\Player\WeaponScript.cs" />
      <Compile Include="Assets\Custom Assets\Scripts\PowerUp.cs" />
      <Compile Include="Assets\Custom Assets\Scripts\Shot\ShotMove.cs" />
@@ -69,8 +70,11 @@
      <Compile Include="Assets\Scripts\Character\LifeBar.cs" />
      <Compile Include="Assets\Scripts\Character\MoveObject.cs" />
      <Compile Include="Assets\Scripts\Character\PowerupController.cs" />
+     <Compile Include="Assets\Scripts\Character\ReverseDirection.cs" />
      <Compile Include="Assets\Scripts\Character\SwitchDoors\DynamicDoor.cs" />
      <Compile Include="Assets\Scripts\Character\SwitchDoors\DynamicSwitch.cs" />
+     <Compile Include="Assets\Scripts\Character\SwitchDoors\StaticDoor.cs" />
+     <Compile Include="Assets\Scripts\Character\SwitchDoors\StaticSwitch.cs" />
      <Compile Include="Assets\Scripts\Character\SwitchDoors\invisibleColliderSwitch1.cs" />
      <Compile Include="Assets\Scripts\Character\TutorialLevel\invisibleCollider1.cs" />
      <Compile Include="Assets\Scripts\Character\TutorialLevel\invisibleCollider2.cs" />

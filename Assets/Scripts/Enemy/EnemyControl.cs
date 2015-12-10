@@ -24,7 +24,9 @@ public class EnemyControl : MonoBehaviour {
 			Destroy(gameObject);
 		}
 
-        colliding = (colliding) ? false : true;
+		if (colliding == false) {
+			colliding = true;
+		}
 		
 	}
 
@@ -32,17 +34,17 @@ public class EnemyControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-
-		GetComponent<Rigidbody2D> ().velocity = new Vector2 (speed, GetComponent<Rigidbody2D> ().velocity.y);
-
 		// For every colliding, filp the sprite and move to opposite direction
 		if (colliding) {
-			transform.localScale = new Vector2(transform.localScale.x *-1,transform.localScale.y);
+
+			Debug.Log("Colliding");
+
+			transform.localScale = new Vector2(-1*transform.localScale.x,transform.localScale.y);
 			speed *= -1;
 			colliding = false;
-
 		}
 
+		GetComponent<Rigidbody2D> ().velocity = new Vector2 (speed, GetComponent<Rigidbody2D> ().velocity.y);
 
 	}
 

@@ -1,10 +1,22 @@
 fileFormatVersion: 2
 guid: e28b7afdc6cf9cc4ab457019da3863a3
-timeCreated: 1444599899
+timeCreated: 1446509072
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - pfBlock: {fileID: 177766, guid: f581ef7398643154682a07e4a9892a3f, type: 2}
+  - pfPlatform: {fileID: 148792, guid: 0e0cb962139ca2246a7b737fd023548c, type: 2}
+  - pfBat: {fileID: 125302, guid: 9d02f2ca5a9481845b6dc36145087080, type: 2}
+  - pfCharacter: {fileID: 162182, guid: f093258ff064d4902bf37109cfc7e478, type: 2}
+  - pfGoal: {fileID: 122954, guid: 3d93ff3b507db4c4381dc3781ae0917a, type: 2}
+  - pfSpikes: {fileID: 189646, guid: 7c4c1fe07d7a723408efb75e056cfa26, type: 2}
+  - pfBlobRegen: {fileID: 189622, guid: 2d58149243697449db920ed5a477fa62, type: 2}
+  - pfBreakableWall: {fileID: 177766, guid: f581ef7398643154682a07e4a9892a3f, type: 2}
+  - pfArrowTrap: {instanceID: 0}
+  - pfMovingPlatform: {fileID: 180912, guid: 3dcbd2076aced4ba69ac3d0c262ec291, type: 2}
+  - pfPlayerDetector: {instanceID: 0}
+  - pfAngry: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

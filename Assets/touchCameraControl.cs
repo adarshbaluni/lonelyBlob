@@ -19,6 +19,7 @@ public class touchCameraControl : MonoBehaviour
 	private Camera _camera;
 	
 	private float minX, maxX, minY, maxY;
+
 	private float horizontalExtent, verticalExtent;
 	
 	private float scrollVelocity = 0.0f;
@@ -28,7 +29,6 @@ public class touchCameraControl : MonoBehaviour
 	void Start () 
 	{
 		_camera = Camera.main;
-		
 		maxZoom = 0.5f * (mapWidth / _camera.aspect);
 		
 		if (mapWidth > mapHeight)
@@ -131,17 +131,18 @@ public class touchCameraControl : MonoBehaviour
 	void CalculateLevelBounds ()
 	{
 		verticalExtent = _camera.orthographicSize;
-		horizontalExtent = _camera.orthographicSize * Screen.width/Screen.height;
-		 Debug.Log(Screen.width);
-		maxX = 24.0f;
-		minX = -331.0f;
-		maxY = 15.0f;
-		minY = 190.0f;}
+		horizontalExtent = 120.0f;
+	
+		minX = horizontalExtent - mapWidth / 3.0f;
+		maxX = (horizontalExtent - mapWidth / 2.0f)*(-1.0f)-300.0f;
+		minY = mapHeight / 2.0f-verticalExtent-60.0f;
+		maxY = mapHeight / 2.0f - verticalExtent+80.0f;
+	}
 	
 	void LateUpdate ()
 	{
 		Vector3 limitedCameraPosition = _camera.transform.position;
-		limitedCameraPosition.x = Mathf.Clamp (limitedCameraPosition.x, minX, maxX);
+		limitedCameraPosition.x = Mathf.Clamp (limitedCameraPosition.x, 0, 540);
 		limitedCameraPosition.y = Mathf.Clamp (limitedCameraPosition.y, minY, maxY);
 		_camera.transform.position = limitedCameraPosition;
 	}
